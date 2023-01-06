@@ -89,6 +89,7 @@ class SnippingWidget(QWidget):
 
         try:
             img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+            self.on_snipping_finished(img)
         except:
             img = None
 
@@ -143,6 +144,7 @@ class SnippingWidget(QWidget):
 
         try:
             img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+            self.on_snipping_finished(img)
         except:
             img = None
 
@@ -150,6 +152,15 @@ class SnippingWidget(QWidget):
             self.onSnippingCompleted(img)
 
         self.close()
+
+    def on_snipping_finished(self, image):
+        # Salva l'immagine in un file png
+        cv2.imwrite('screenshot.png', image)
+
+        # Disattiva la modalità di ritaglio dello schermo
+        self.is_snipping = False
+        self.setWindowOpacity(1)
+        self.setCursor(QCursor(Qt.ArrowCursor))
 
 
 class MainWindow(QMainWindow):
