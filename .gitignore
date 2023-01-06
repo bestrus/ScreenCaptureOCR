@@ -130,3 +130,9 @@ dmypy.json
 
 # Ide Pycharm
 .idea
+
+# schermata catturata
+screenshot.png
+
+# file di test
+test.py

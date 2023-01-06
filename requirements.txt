@@ -1,0 +1,6 @@
+pyautogui
+pillow
+PyQt5
+opencv-python
+pyside2
+numpy
