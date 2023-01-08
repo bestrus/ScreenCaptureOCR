@@ -1,6 +1,6 @@
-pyautogui
-pillow
-PyQt5
-opencv-python
-pyside2
-numpy
+pillow==9.4.0
+opencv-python==4.7.0.68
+pyside2==5.15.2.1
+numpy==1.24.1
+pytesseract==0.3.10
+pyperclip==1.8.2

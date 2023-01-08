@@ -1,12 +1,24 @@
+from PIL import ImageGrab, Image
+from pytesseract import image_to_string as pytesseract_image_to_string
+from pyperclip import copy as pyperclip_copy
+import cv2
+
+
+def copy_text_from_image(cv2_image):
+    # Convertire l'immagine in un formato compatibile con PIL usando cv2.cvtColor e np.array
+    pil_image = Image.fromarray(cv2.cvtColor(np.array(cv2_image), cv2.COLOR_RGB2BGR))
+    # Estrarre il testo dall'immagine utilizzando pytesseract
+    text = pytesseract_image_to_string(pil_image)
+    # Copia il testo negli appunti del sistema operativo
+    pyperclip_copy(text)
+
+
 import sys
+import numpy as np
 
 from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
-
-import numpy as np
-import cv2
-from PIL import ImageGrab
 
 
 class Ui_MainWindow(object):
@@ -74,7 +86,7 @@ class SnippingWidget(QWidget):
     is_snipping = False
 
     def __init__(self, parent=None, app=None):
-        super(SnippingWidget, self).__init__(parent)
+        super(SnippingWidget, self).__init__()
         self.parent = parent
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
 
@@ -89,7 +101,7 @@ class SnippingWidget(QWidget):
 
         try:
             img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-            self.on_snipping_finished(img)
+            copy_text_from_image(img)
         except:
             img = None
 
@@ -144,7 +156,7 @@ class SnippingWidget(QWidget):
 
         try:
             img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-            self.on_snipping_finished(img)
+            copy_text_from_image(img)
         except:
             img = None
 
@@ -152,15 +164,6 @@ class SnippingWidget(QWidget):
             self.onSnippingCompleted(img)
 
         self.close()
-
-    def on_snipping_finished(self, image):
-        # Salva l'immagine in un file png
-        cv2.imwrite('screenshot.png', image)
-
-        # Disattiva la modalità di ritaglio dello schermo
-        self.is_snipping = False
-        self.setWindowOpacity(1)
-        self.setCursor(QCursor(Qt.ArrowCursor))
 
 
 class MainWindow(QMainWindow):
@@ -236,8 +239,9 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
 
         msg = "Close the app?"
-        reply = QMessageBox.question(self, 'Message',
-                                     msg, QMessageBox.Yes, QMessageBox.No)
+        reply = QMessageBox.question(
+            self, 'Message', msg, QMessageBox.Yes, QMessageBox.No
+        )
 
         if reply == QMessageBox.Yes:
             event.accept()
