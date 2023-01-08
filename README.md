@@ -19,6 +19,7 @@ Per eseguire questo progetto, sarà necessario avere installato:
 - Vai al sito web di tesseract: https://github.com/UB-Mannheim/tesseract/wiki e scarica la tua versione.
 - Una volta scaricato il file .exe, eseguilo per installare tesseract sul tuo computer.
 - Assicurati di aggiungere il percorso di Tesseract al tuo PATH di sistema. Per fare ciò, vai su "Pannello di controllo" -> "Sistema" -> "Impostazioni di sistema avanzate" -> "Variabili d'ambiente". Nella sezione "Variabili di sistema", seleziona la variabile "Path" e clicca su "Modifica". Aggiungi il percorso di Tesseract al PATH (ad esempio, "C:\Program Files (x86)\Tesseract-OCR")
+- Riavviare il pc.
 3. Scaricare il progetto git `git clone https://github.com/bestrus/ScreenCaptureOCR.git`
 4. Aprire il prompt dei comandi nella cartella del progetto e digitare il seguente comando per installare le dipendenze del progetto:
 `pip install -r requirements.txt`
@@ -32,4 +33,6 @@ $ python -m venv .venv
 $ .venv\Scripts\activate.bat
 $ pip install -r requirements.txt
 $ python screen_capture.py
+premere "Select Area"
+usare incolla (Ctrl + v)
 ```
